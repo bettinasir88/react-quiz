@@ -1,17 +1,14 @@
 import React from 'react';
+import {Form, FormControl, Button} from 'react-bootstrap';
 
 class SearchBar extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<label htmlFor="question-search">Search by text:</label>
-				<input type="search" 
-					   id="question-search"
-					   name="q"
-				       aria-label="Search through the questions" />
-				<button>Search</button>
-			</div>
+			<Form inline>
+				<FormControl type="text" placeholder="Search for question..." className="mr-sm-2" />
+				<Button variant="outline-info">Search</Button>
+			</Form>
 		);
 	}
 }

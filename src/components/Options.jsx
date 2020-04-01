@@ -1,4 +1,5 @@
 import React from 'react';
+import {Form} from 'react-bootstrap';
 
 class Options extends React.Component {
 
@@ -6,22 +7,23 @@ class Options extends React.Component {
 		const questionNumber = this.props.questionNumber;
 
 		const options = this.props.options.map((option, optionNumber) => {
-	      return (
-	      	<label 
-	      		key={'option_' + questionNumber + '_' + optionNumber}
-	      		htmlFor={'option_' + questionNumber + '_' + optionNumber}>
-	      		{option}
-	        	<input 
-	        		type="radio"
-	        		name={'question_' + questionNumber}
-	        		value={'option_' + optionNumber}
-	        		id={'option_' + questionNumber + '_' + optionNumber}
-            	/>
-			</label>
-	      );
+	      	return (
+			      <Form.Check
+			        type="radio"
+			        key={'option_' + questionNumber + '_' + optionNumber}
+			        id={'option_' + questionNumber + '_' + optionNumber}
+			        name={'question_' + questionNumber}
+		        	value={'option_' + optionNumber}
+			        label={option}
+			      />
+		    );
 	    });
 
-		return options;
+		return (
+			<div className="options">
+				{options}
+			</div>
+		);		
 	}
 }
 

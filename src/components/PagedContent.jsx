@@ -1,4 +1,5 @@
 import React from 'react';
+import {Form} from 'react-bootstrap';
 
 import Question from './Question';
 
@@ -14,9 +15,12 @@ class PagedContent extends React.Component {
 	    });
 
 		return (
-			<div>{questions}</div>
+			<Form className="form-striped">
+				{questions}
+			</Form>
 		);
 	}
 }
 
 export default PagedContent;
+

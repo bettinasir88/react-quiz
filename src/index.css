@@ -1,10 +1,36 @@
-body {
-  margin: 0;
-  font: 14px "Century Gothic", Futura, sans-serif;
-  -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
+html {
+	font-family: 'Lato', sans-serif;
 }
 
-li {
-  list-style-type: none;
+/**
+ * Containers
+ */
+.nav-container,
+.quiz-container {
+	padding: 0;
+}
+
+.content-container {
+	margin-top: 1rem;
+}
+
+/**
+ * Form
+ */
+form.form-striped div.form-group:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.form-group {
+	padding: 12px;
+	margin-bottom: 0;
+}
+
+.form-group label.form-label {
+	color: #59849f;
+    font-weight: 500;
+}
+
+.form-group .options {
+    font-size: 14px;
 }
