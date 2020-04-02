@@ -34,3 +34,11 @@ form.form-striped div.form-group:nth-of-type(odd) {
 .form-group .options {
     font-size: 14px;
 }
+
+/**
+ * Pagination
+ */
+.pagination {
+	align-items: center;
+    justify-content: center;
+}
