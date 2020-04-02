@@ -13,8 +13,9 @@ class Options extends React.Component {
 			        key={'option_' + questionNumber + '_' + optionNumber}
 			        id={'option_' + questionNumber + '_' + optionNumber}
 			        name={'question_' + questionNumber}
-		        	value={'option_' + optionNumber}
+		        	value={questionNumber + '_' + optionNumber}
 			        label={option}
+			        onChange={this.props.onAnswer}
 			      />
 		    );
 	    });

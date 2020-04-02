@@ -10,7 +10,8 @@ class Question extends React.Component {
 			<Form.Group controlId={'formQuestion' + this.props.question.number}>
 			    <Form.Label>{this.props.question.label}</Form.Label>
 			    <Options questionNumber={this.props.question.number}
-						 options={this.props.question.options} />
+						 options={this.props.question.options} 
+						 onAnswer={this.props.onAnswer} />
 			</Form.Group>
 		);
 	}

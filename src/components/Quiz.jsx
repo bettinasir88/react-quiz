@@ -12,22 +12,37 @@ class Quiz extends React.Component {
 		super(props);
 
 		this.state = {
-			searchText: '', 
-			filteredQuestions: Questions
+			filteredQuestions: Questions,
+			answers: [],
 		}
 	}
 
 	handleSearch(e) {
 		const searchText = e.target.value;
-
-		this.setState({searchText: searchText});
 		
 		const filteredQuestions = Questions.filter((question) => {
 			var regex = new RegExp(searchText, "i");
 			return regex.test(question.label); 
 	    });
 
-		this.setState({filteredQuestions: filteredQuestions});
+		this.setState({
+			filteredQuestions: filteredQuestions
+		});
+	}
+
+	handleAnswer(e) {
+		const currentAnswers = this.state.answers;
+		const [question, answer] = e.target.value.split('_');
+
+		currentAnswers['question_' + question] = answer;
+		
+		this.setState({
+			answers: currentAnswers,
+	    });
+	}
+
+	handleSubmit() {
+		this.checkAnswers();
 	}
 
 	render() {
@@ -42,11 +57,22 @@ class Quiz extends React.Component {
 					</Container>
 				</Navbar>
 				<Container className="content-container">			
-					<PagedContent questions={questions} />
+					<PagedContent 
+						questions={questions} 
+						onAnswer={e =>this.handleAnswer(e)} 
+					/>
 					<Paginator />
 				</Container>
 			</Container>
 		);
+	}
+
+	validateAnswers() {
+
+	}
+
+	checkAnswers() {
+		this.validateAnswers();
 	}
 }
 

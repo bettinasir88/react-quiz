@@ -10,7 +10,8 @@ class PagedContent extends React.Component {
 	      return (
 	      	<Question
 	      		question={question}
-	      		key={'question_' + question.number} />
+	      		key={'question_' + question.number}
+	      		onAnswer={this.props.onAnswer} />
 	      );
 	    });
 
