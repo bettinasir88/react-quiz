@@ -7,13 +7,15 @@ class Question extends React.Component {
 
     render() {
         let result = '';
+        const question = this.props.question;
+        const correctAnswer = question.options[question.correctOption];
 
         switch(this.props.isCorrect) {
             case true:
                 result = (
                         <div className="text-success">
                             <span className="oi oi-check mr-1" title="Correct" aria-hidden="true"></span>
-                            <span>Correct</span>
+                            <span>Correct!</span>
                         </div>
                 );
                 break;
@@ -21,7 +23,7 @@ class Question extends React.Component {
                 result = (
                         <div className="text-danger">
                             <span className="oi oi-x mr-1" title="Incorrect" aria-hidden="true"></span>
-                            <span>Incorrect</span>
+                            <span>Oops! The right answer was "{correctAnswer}"</span>
                         </div>
                 );
                 break;
