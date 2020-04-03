@@ -14,6 +14,7 @@ class Quiz extends React.Component {
         this.state = {
             filteredQuestions: Questions,
             currentAnswers: [],
+            isAllAnswered: false,
         }
     }
 
@@ -31,18 +32,9 @@ class Quiz extends React.Component {
     }
 
     handleAnswer(e) {
-        const currentAnswers = this.state.currentAnswers;
-        const [question, answer] = e.target.value.split('_');
+        this.recordAnswer.apply(this, e.target.value.split('_'));
 
-        const data = {
-            answer: parseInt(answer),
-        };
-
-        currentAnswers['question_' + question] = data;
-
-        this.setState({
-            currentAnswers: currentAnswers,
-        });
+        this.checkIfAllAnswered();
     }
 
     handleSubmit() {
@@ -52,6 +44,7 @@ class Quiz extends React.Component {
     render() {
         const questions = this.state.filteredQuestions;
         const currentAnswers = this.state.currentAnswers;
+        const isAllAnswered = this.state.isAllAnswered;
 
         return (
             <Container fluid className="quiz-container">
@@ -67,6 +60,7 @@ class Quiz extends React.Component {
                         currentAnswers={currentAnswers}
                         onAnswer={e => this.handleAnswer(e)}
                         onSubmit={() => this.checkAnswers()}
+                        isAllAnswered={isAllAnswered}
                     />
                     <Paginator />
                 </Container>
@@ -74,24 +68,41 @@ class Quiz extends React.Component {
         );
     }
 
-    validateAnswers() {
+    /**
+     * Record each answer as it happens
+     */
+    recordAnswer(questionNumber, answerNumber) {
+        const currentAnswers = this.state.currentAnswers;
+
+        const data = {
+            answer: parseInt(answerNumber),
+        };
+
+        currentAnswers['question_' + questionNumber] = data;
+
+        this.setState({
+            currentAnswers: currentAnswers,
+        });
+    }
+
+    /**
+     * Check if all has been answered
+     */
+    checkIfAllAnswered() {
         const currentAnswers = this.state.currentAnswers;
 
         const questions = Object.keys(Questions).length;
         const answers   = Object.keys(currentAnswers).length;
 
-        return answers === questions;
+        this.setState({
+            isAllAnswered: answers === questions,
+        });
     }
 
+    /**
+     * Check if answers are correct
+     */
     checkAnswers() {
-        /**
-         * Check form is valid
-         */
-        const valid = this.validateAnswers();
-
-        /**
-         * Check correct answers
-         */
         const currentAnswers = this.state.currentAnswers;
 
         for (const key in currentAnswers) {

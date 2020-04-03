@@ -7,6 +7,7 @@ class PagedContent extends React.Component {
 
     render() {
         const currentAnswers = this.props.currentAnswers;
+        const isAllAnswered  = this.props.isAllAnswered;
 
         const questions = this.props.questions.map((question, number) => {
             
@@ -27,6 +28,7 @@ class PagedContent extends React.Component {
                 <Button 
                     variant="secondary"
                     onClick={this.props.onSubmit}
+                    disabled={!isAllAnswered}
                 >
                     Submit answers
                 </Button>
