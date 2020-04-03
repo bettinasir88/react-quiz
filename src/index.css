@@ -1,5 +1,5 @@
 html {
-	font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 /**
@@ -7,11 +7,11 @@ html {
  */
 .nav-container,
 .quiz-container {
-	padding: 0;
+    padding: 0;
 }
 
 .content-container {
-	margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 /**
@@ -22,12 +22,12 @@ form.form-striped div.form-group:nth-of-type(odd) {
 }
 
 .form-group {
-	padding: 12px;
-	margin-bottom: 0;
+    padding: 12px;
+    margin-bottom: 0;
 }
 
 .form-group label.form-label {
-	color: #59849f;
+    color: #59849f;
     font-weight: 500;
 }
 
@@ -39,6 +39,6 @@ form.form-striped div.form-group:nth-of-type(odd) {
  * Pagination
  */
 .pagination {
-	align-items: center;
+    align-items: center;
     justify-content: center;
 }

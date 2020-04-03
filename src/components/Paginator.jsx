@@ -3,18 +3,18 @@ import {Pagination, Container} from 'react-bootstrap';
 
 class Paginator extends React.Component {
 
-	render() {
-		return (
-			<Container>
-				<Pagination>
-				  <Pagination.Prev />
-				  <Pagination.Item>{1}</Pagination.Item>
-				  <Pagination.Item active>{2}</Pagination.Item>
-				  <Pagination.Next />
-				</Pagination>
-			</Container>
-		)
-	}
+    render() {
+        return (
+            <Container>
+                <Pagination>
+                  <Pagination.Prev />
+                  <Pagination.Item>{1}</Pagination.Item>
+                  <Pagination.Item active>{2}</Pagination.Item>
+                  <Pagination.Next />
+                </Pagination>
+            </Container>
+        )
+    }
 }
 
 export default Paginator;
