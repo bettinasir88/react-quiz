@@ -13,7 +13,7 @@ class Quiz extends React.Component {
 
 		this.state = {
 			filteredQuestions: Questions,
-			answers: [],
+			currentAnswers: [],
 		}
 	}
 
@@ -31,13 +31,17 @@ class Quiz extends React.Component {
 	}
 
 	handleAnswer(e) {
-		const currentAnswers = this.state.answers;
+		const currentAnswers = this.state.currentAnswers;
 		const [question, answer] = e.target.value.split('_');
 
-		currentAnswers['question_' + question] = answer;
-		
+		const data = {
+			answer: parseInt(answer),
+		};
+
+		currentAnswers['question_' + question] = data;
+
 		this.setState({
-			answers: currentAnswers,
+			currentAnswers: currentAnswers,
 	    });
 	}
 
@@ -47,19 +51,22 @@ class Quiz extends React.Component {
 
 	render() {
 		const questions = this.state.filteredQuestions;
+		const currentAnswers = this.state.currentAnswers;
 
 		return (
 			<Container fluid className="quiz-container">
 				<Navbar bg="dark" variant="dark" sticky="top">
 					<Container className="nav-container">
 						<Navbar.Brand href="#home">English Quiz</Navbar.Brand>
-						<SearchBar onSearch={e =>this.handleSearch(e)} />
+						<SearchBar onSearch={e => this.handleSearch(e)} />
 					</Container>
 				</Navbar>
 				<Container className="content-container">			
 					<PagedContent 
-						questions={questions} 
-						onAnswer={e =>this.handleAnswer(e)} 
+						questions={questions}
+						currentAnswers={currentAnswers}
+						onAnswer={e => this.handleAnswer(e)}
+						onSubmit={() => this.checkAnswers()}
 					/>
 					<Paginator />
 				</Container>
@@ -68,11 +75,35 @@ class Quiz extends React.Component {
 	}
 
 	validateAnswers() {
+		const currentAnswers = this.state.currentAnswers;
 
+		const questions = Object.keys(Questions).length;
+		const answers   = Object.keys(currentAnswers).length;
+
+		return answers === questions;
 	}
 
 	checkAnswers() {
-		this.validateAnswers();
+		/**
+		 * Check form is valid
+		 */
+		const valid = this.validateAnswers();
+
+		/**
+		 * Check correct answers
+		 */
+		const currentAnswers = this.state.currentAnswers;
+
+		for (const key in currentAnswers) {
+			const qNumber = key.split('_')[1];
+
+			currentAnswers[key].isCorrect = Questions[qNumber].correctOption 
+											=== currentAnswers[key].answer;
+		}
+
+		this.setState({
+			currentAnswers: currentAnswers,
+	    });
 	}
 }
 
