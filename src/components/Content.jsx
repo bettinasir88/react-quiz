@@ -3,7 +3,7 @@ import {Form, Button} from 'react-bootstrap';
 
 import Question from './Question';
 
-class PagedContent extends React.Component {
+class Content extends React.Component {
 
     render() {
         const currentAnswers = this.props.currentAnswers;
@@ -39,5 +39,5 @@ class PagedContent extends React.Component {
     }
 }
 
-export default PagedContent;
+export default Content;
 

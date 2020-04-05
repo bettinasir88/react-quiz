@@ -1,8 +1,7 @@
 import React from 'react';
 import {Navbar, Container} from 'react-bootstrap';
 
-import PagedContent from './PagedContent';
-import Paginator from './Paginator';
+import Content from './Content';
 import Results from './Results.jsx';
 import SearchBar from './SearchBar';
 import Questions from '../questions';
@@ -76,7 +75,7 @@ class Quiz extends React.Component {
                 </Navbar>
                 <Container className="content-container">    
                     {resultsElem}      
-                    <PagedContent 
+                    <Content 
                         questions={questions}
                         currentAnswers={currentAnswers}
                         onAnswer={e => this.handleAnswer(e)}
@@ -84,7 +83,6 @@ class Quiz extends React.Component {
                         isAllAnswered={isAllAnswered}
                         isSubmitted={isSubmitted}
                     />
-                    <Paginator />
                 </Container>
             </Container>
         );
