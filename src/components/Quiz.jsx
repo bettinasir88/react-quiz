@@ -1,9 +1,10 @@
 import React from 'react';
 import {Navbar, Container} from 'react-bootstrap';
 
-import SearchBar from './SearchBar';
 import PagedContent from './PagedContent';
 import Paginator from './Paginator';
+import Results from './Results.jsx';
+import SearchBar from './SearchBar';
 import Questions from '../questions';
 
 class Quiz extends React.Component {
@@ -14,7 +15,13 @@ class Quiz extends React.Component {
         this.state = {
             filteredQuestions: Questions,
             currentAnswers: [],
+            results: {
+                correct: 0,
+                total: 0,
+                passed: false,
+            },
             isAllAnswered: false,
+            isSubmitted: false,
         }
     }
 
@@ -32,9 +39,15 @@ class Quiz extends React.Component {
     }
 
     handleAnswer(e) {
-        this.recordAnswer.apply(this, e.target.value.split('_'));
+        const currentAnswers = this.recordAnswer
+                                .apply(this, e.target.value.split('_'));
 
-        this.checkIfAllAnswered();
+        const isAllAnswered = this.checkIfAllAnswered();
+
+        this.setState({
+            currentAnswers: currentAnswers,
+            isAllAnswered: isAllAnswered
+        });
     }
 
     handleSubmit() {
@@ -42,9 +55,16 @@ class Quiz extends React.Component {
     }
 
     render() {
-        const questions = this.state.filteredQuestions;
+        const questions      = this.state.filteredQuestions;
         const currentAnswers = this.state.currentAnswers;
-        const isAllAnswered = this.state.isAllAnswered;
+        const isAllAnswered  = this.state.isAllAnswered;
+        const isSubmitted    = this.state.isSubmitted;
+        const results        = this.state.results;
+        let   resultsElem    = '';
+
+        if (isSubmitted) {
+            resultsElem = <Results results={results} /> 
+        }
 
         return (
             <Container fluid className="quiz-container">
@@ -54,13 +74,15 @@ class Quiz extends React.Component {
                         <SearchBar onSearch={e => this.handleSearch(e)} />
                     </Container>
                 </Navbar>
-                <Container className="content-container">           
+                <Container className="content-container">    
+                    {resultsElem}      
                     <PagedContent 
                         questions={questions}
                         currentAnswers={currentAnswers}
                         onAnswer={e => this.handleAnswer(e)}
                         onSubmit={() => this.checkAnswers()}
                         isAllAnswered={isAllAnswered}
+                        isSubmitted={isSubmitted}
                     />
                     <Paginator />
                 </Container>
@@ -80,9 +102,7 @@ class Quiz extends React.Component {
 
         currentAnswers['question_' + questionNumber] = data;
 
-        this.setState({
-            currentAnswers: currentAnswers,
-        });
+        return currentAnswers;
     }
 
     /**
@@ -94,9 +114,7 @@ class Quiz extends React.Component {
         const questions = Object.keys(Questions).length;
         const answers   = Object.keys(currentAnswers).length;
 
-        this.setState({
-            isAllAnswered: answers === questions,
-        });
+        return answers === questions;
     }
 
     /**
@@ -105,15 +123,26 @@ class Quiz extends React.Component {
     checkAnswers() {
         const currentAnswers = this.state.currentAnswers;
 
+        let results = {
+            correct: 0,
+            total: Object.keys(currentAnswers).length,
+            passed: false,
+        }
+
         for (const key in currentAnswers) {
             const qNumber = key.split('_')[1];
+            const isCorrect = Questions[qNumber].correctOption === currentAnswers[key].answer;
 
-            currentAnswers[key].isCorrect = Questions[qNumber].correctOption 
-                                            === currentAnswers[key].answer;
+            currentAnswers[key].isCorrect = isCorrect;
+            results.correct = isCorrect ? ++results.correct : results.correct;
         }
+
+        results.passed = (results.correct / results.total) >= 0.6;
 
         this.setState({
             currentAnswers: currentAnswers,
+            isSubmitted: true,
+            results: results,
         });
     }
 }

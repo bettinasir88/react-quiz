@@ -17,12 +17,16 @@ html {
 /**
  * Form
  */
+form.form-striped {
+    border: rgba(0,0,0,.05) 1px solid;
+}
+
 form.form-striped div.form-group:nth-of-type(odd) {
     background-color: rgba(0,0,0,.05);
 }
 
 .form-group {
-    padding: 12px;
+    padding: 1rem;
     margin-bottom: 0;
 }
 
@@ -32,13 +36,14 @@ form.form-striped div.form-group:nth-of-type(odd) {
 }
 
 .form-group .options {
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 /**
- * Pagination
+ * Media
  */
-.pagination {
-    align-items: center;
-    justify-content: center;
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 2rem;
+    }
 }

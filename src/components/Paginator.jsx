@@ -5,7 +5,7 @@ class Paginator extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className="mt-3">
                 <Pagination>
                   <Pagination.Prev />
                   <Pagination.Item>{1}</Pagination.Item>

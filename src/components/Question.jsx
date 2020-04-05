@@ -13,7 +13,7 @@ class Question extends React.Component {
         switch(this.props.isCorrect) {
             case true:
                 result = (
-                        <div className="text-success">
+                        <div className="text-success mt-2">
                             <span className="oi oi-check mr-1" title="Correct" aria-hidden="true"></span>
                             <span>Correct!</span>
                         </div>
@@ -21,7 +21,7 @@ class Question extends React.Component {
                 break;
             case false:
                 result = (
-                        <div className="text-danger">
+                        <div className="text-danger mt-2">
                             <span className="oi oi-x mr-1" title="Incorrect" aria-hidden="true"></span>
                             <span>Oops! The right answer was "{correctAnswer}"</span>
                         </div>
