@@ -34,7 +34,9 @@ class Question extends React.Component {
                 <Form.Label>{this.props.question.label}</Form.Label>
                 <Options questionNumber={this.props.question.number}
                          options={this.props.question.options} 
-                         onAnswer={this.props.onAnswer} />
+                         onAnswer={this.props.onAnswer}
+                         isSubmitted={this.props.isSubmitted}
+                />
                 <Form.Text>
                     {result}
                 </Form.Text>

@@ -19,7 +19,9 @@ class Content extends React.Component {
                     question={question}
                     key={'question_' + question.number}
                     onAnswer={this.props.onAnswer} 
-                    isCorrect={isCorrect} />
+                    isCorrect={isCorrect}
+                    isSubmitted={isSubmitted} 
+                />
             );
         });
 

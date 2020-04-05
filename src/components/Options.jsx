@@ -16,6 +16,7 @@ class Options extends React.Component {
                     value={questionNumber + '_' + optionNumber}
                     label={option}
                     onChange={this.props.onAnswer}
+                    disabled={this.props.isSubmitted}
                   />
             );
         });
